@@ -8,11 +8,11 @@ matriz = np.loadtxt('resultado.txt')
 np.set_printoptions(precision=6)
 
 ### PARAMETROS DO AGENTE ###
-alpha = 0.20        # Taxa de aprendizagem  [0, 1]
+alpha = 0.02        # Taxa de aprendizagem  [0, 1]
 curr_state = 0      # Estado inicial        [0, 95]
 curr_reward = -14   # Recompensa inicial    [-14, -1]
-gama = 0.9          # Taxa de desconto      [0, 1]
-exploracao = 0    # Taxa de exploração    [0, 1]
+gama = 0.5          # Taxa de desconto      [0, 1]
+exploracao = 1.0    # Taxa de exploração    [0, 1]
 
 acoes = ["left", "right", "jump"] # Lista de ações
 
@@ -39,8 +39,8 @@ while True:
     next_state = estado
     
     # Equação de Bellman
-    matriz[curr_state][indice] = matriz[curr_state][indice] +                                 \
-                                alpha*( ( recompensa + (gama * np.max(matriz[next_state]))) - \
+    matriz[curr_state][indice] = matriz[curr_state][indice] +                        \
+                                alpha*(recompensa + gama * max(matriz[next_state]) - \
                                 matriz[curr_state][indice])
 
     curr_state = next_state
